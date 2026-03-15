@@ -1,0 +1,1 @@
+web: gunicorn fashion_backend.wsgi:application
