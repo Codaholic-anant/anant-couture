@@ -49,9 +49,9 @@ export default function Navbar() {
                         Cart ({cartCount})
                     </Link>
 
-                    <Link to="/profile" className="flex items-center gap-1 hover:text-black">
+                    <Link to="/login" className="flex items-center gap-1 hover:text-black">
                         <User size={18} />
-                        Profile
+                        Login/Register
                     </Link>
 
                 </div>
