@@ -10,4 +10,16 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
+API.interceptors.response.use(
+    response => response,
+    async error => {
+        if (!error.response) {
+            // Server is waking up — retry after 5 seconds
+            await new Promise(resolve => setTimeout(resolve, 5000));
+            return API.request(error.config);
+        }
+        return Promise.reject(error);
+    }
+);
+
 export default API;
