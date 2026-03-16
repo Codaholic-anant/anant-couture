@@ -2,13 +2,16 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 from .models import User
 from .serializers import UserSerializer, ProfileSerializer
+
 
 class RegisterView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
 
 class ProfileView(APIView):
     permission_classes = [IsAuthenticated]
@@ -23,3 +26,19 @@ class ProfileView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def create_superuser(request):
+    from django.contrib.auth import get_user_model
+    User = get_user_model()
+    username = request.data.get('username')
+    password = request.data.get('password')
+    email = request.data.get('email', '')
+
+    if User.objects.filter(username=username).exists():
+        return Response({"error": "User already exists"})
+
+    User.objects.create_superuser(username=username, password=password, email=email)
+    return Response({"success": f"Superuser {username} created!"})
