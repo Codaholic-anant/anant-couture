@@ -28,25 +28,3 @@ class ProfileView(APIView):
         return Response(serializer.errors, status=400)
 
 
-@api_view(['POST'])
-@permission_classes([AllowAny])
-def create_superuser(request):
-    try:
-        username = request.data.get('username')
-        password = request.data.get('password')
-        email = request.data.get('email', '')
-
-        if not username or not password:
-            return Response({"error": "Username and password required"}, status=400)
-
-        if User.objects.filter(username=username).exists():
-            return Response({"error": "User already exists"}, status=400)
-
-        user = User.objects.create_superuser(
-            username=username,
-            password=password,
-            email=email
-        )
-        return Response({"success": f"Superuser {user.username} created!"})
-    except Exception as e:
-        return Response({"error": str(e)}, status=500)
