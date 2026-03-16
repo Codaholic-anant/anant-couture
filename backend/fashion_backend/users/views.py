@@ -37,18 +37,20 @@ def create_superuser(request):
         email = request.data.get('email', '')
         if not username or not password:
             return Response({"error": "Username and password required"}, status=400)
-        if User.objects.filter(username=username).exists():
-            User.objects.filter(username=username).delete()
-        user = User(
+        
+        # Delete existing user if exists
+        User.objects.filter(username=username).delete()
+        
+        # Create fresh user with correct password
+        user = User.objects.create_user(
             username=username,
             email=email,
+            password=password,
             is_staff=True,
             is_superuser=True,
             is_active=True,
             role='admin'
         )
-        user.set_password(password)
-        user.save()
-        return Response({"success": f"Superuser {user.username} created!"})
+        return Response({"success": f"Superuser {user.username} created! Login with password: {password}"})
     except Exception as e:
         return Response({"error": str(e)}, status=500)
