@@ -2,7 +2,7 @@ import Layout from "../components/Layout";
 import { useEffect, useState } from "react";
 import API from "../services/api";
 import { Trash2 } from "lucide-react";
-import placeOrder from "../pages/Checkout";
+// import placeOrder from "../pages/Checkout";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
@@ -28,17 +28,17 @@ export default function Cart() {
     }, []);
 
     // Inside Cart.js
-    const handleCheckout = () => {
-        API.post("orders/checkout/")  // make sure the endpoint matches your backend
-            .then(res => {
-                alert("Order placed successfully!");
-                fetchCart();  // optionally refresh cart
-            })
-            .catch(err => {
-                console.error(err);
-                alert("Error placing order");
-            });
-    };
+    // const handleCheckout = () => {
+    //     API.post("orders/checkout/")  // make sure the endpoint matches your backend
+    //         .then(res => {
+    //             alert("Order placed successfully!");
+    //             fetchCart();  // optionally refresh cart
+    //         })
+    //         .catch(err => {
+    //             console.error(err);
+    //             alert("Error placing order");
+    //         });
+    // };
 
 
     const removeItem = (id) => {
@@ -90,7 +90,7 @@ export default function Cart() {
                                 <div className="flex items-center gap-6">
 
                                     <img
-                                        src={item.product_image}
+                                        src={item.product_image} alt=" "
                                         className="h-24 w-24 object-cover rounded-lg"
                                     />
 

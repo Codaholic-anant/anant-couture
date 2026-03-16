@@ -23,7 +23,7 @@ export default function Profile() {
         if (!token) { navigate("/"); return; }
         fetchProfile();
         fetchOrders();
-    }, []);
+    }, [token]);
 
     const fetchProfile = async () => {
         try {
