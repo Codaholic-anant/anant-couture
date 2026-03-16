@@ -1,22 +1,19 @@
-import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
 export default function QuickView({ product, close }) {
-    const navigate = useNavigate();
 
     if (!product) return null;
 
-    // Place order function
     const addToCart = () => {
         API.post("cart/", {
             product: product.id,
             quantity: 1
         })
-            .then(() => {
-                alert("Added to cart");
-            })
-            .catch(err => console.log(err));
-
+        .then(() => {
+            alert("Added to cart");
+            close();
+        })
+        .catch(err => console.log(err));
     };
 
     return (
@@ -32,6 +29,7 @@ export default function QuickView({ product, close }) {
 
                 <img
                     src={product.image}
+                    alt={product.name}
                     className="h-64 w-full object-contain rounded-lg mb-4"
                 />
 
@@ -47,7 +45,6 @@ export default function QuickView({ product, close }) {
                 >
                     Add to Cart
                 </button>
-
 
             </div>
         </div>

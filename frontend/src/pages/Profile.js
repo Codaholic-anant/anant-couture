@@ -23,7 +23,7 @@ export default function Profile() {
         if (!token) { navigate("/"); return; }
         fetchProfile();
         fetchOrders();
-    }, [token]);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchProfile = async () => {
         try {
@@ -168,11 +168,10 @@ export default function Profile() {
                             { id: "orders", label: "Orders", icon: Package },
                         ].map(({ id, label, icon: Icon }) => (
                             <button key={id} onClick={() => setActiveTab(id)}
-                                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${
-                                    activeTab === id
+                                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${activeTab === id
                                         ? "bg-[#1a1a1a] text-white shadow"
                                         : "text-gray-400 hover:text-gray-600"
-                                }`}>
+                                    }`}>
                                 <Icon size={14} /> {label}
                             </button>
                         ))}
