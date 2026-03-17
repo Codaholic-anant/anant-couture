@@ -5,13 +5,10 @@ import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET KEY
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-(bg#7ic-9njpm7a-bct)28hr(2#irr5dd22c$l5f-#y&b2m8_y')
 
-# DEBUG
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-# HOSTS
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
@@ -43,15 +40,23 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS
-CORS_ALLOWED_ORIGINS = [
-    os.environ.get('FRONTEND_URL', 'http://localhost:3000'),
+# CORS — allow all Vercel URLs
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
 ]
-
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.vercel\.app$",
+CORS_ALLOW_METHODS = [
+    'DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT',
 ]
-CORS_ALLOW_ALL_ORIGINS = False
 
 ROOT_URLCONF = 'fashion_backend.urls'
 
@@ -72,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'fashion_backend.wsgi.application'
 
-# DATABASE — PostgreSQL on Render, SQLite locally
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     DATABASES = {
@@ -98,12 +102,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# STATIC FILES
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# MEDIA FILES
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -115,7 +117,8 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'UNAUTHENTICATED_USER': None,
 }
 
 SIMPLE_JWT = {
@@ -124,7 +127,6 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# API KEYS — read from environment, fallback to local values
 RAZORPAY_KEY_ID = os.environ.get('RAZORPAY_KEY_ID', 'rzp_test_SRQyFTwNocmDdq')
 RAZORPAY_SECRET = os.environ.get('RAZORPAY_SECRET', 'q5CrsOrxzMb76ztB1dZwPh1I')
 GROQ_API_KEY = os.environ.get('GROQ_API_KEY', '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')
