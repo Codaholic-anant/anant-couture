@@ -22,7 +22,12 @@ return (
 <div className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col">
 
 <div className="h-60 flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
-  <img src={product.image} alt={product.name} className="H-64 W-full object-contain"/>
+  <img 
+    src={product.image} 
+    alt={product.name} 
+    className="h-64 w-full object-cover"
+    onError={(e) => { e.target.src = "https://placehold.co/300x300?text=No+Image" }}
+/>
 </div>
 
 <div className="mt-4 flex flex-col flex-grow">
