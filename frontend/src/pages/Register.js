@@ -38,7 +38,7 @@ export default function Register() {
             localStorage.setItem("access", res.data.access);
             localStorage.setItem("refresh", res.data.refresh);
 
-            navigate("/home");
+            navigate("/");
 
         } catch (err) {
 

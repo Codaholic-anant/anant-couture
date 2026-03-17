@@ -12,9 +12,7 @@ import Orders from "./pages/Orders";
 import Profile from "./pages/Profile";
 
 function App() {
-
   useEffect(() => {
-    // Wake up Render server on app load
     fetch("https://anant-couture-backend.onrender.com/api/products/")
       .catch(() => {});
   }, []);
@@ -22,9 +20,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
