@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
-const API = "http://localhost:8000/api";
+const API = "https://anant-couture-backend.onrender.com/api";
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);

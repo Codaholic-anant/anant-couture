@@ -45,7 +45,7 @@ const data = res.data;
 
 const options = {
 
-key: "rzp_test_SR9jToeM4s9CPQ",
+key: "rzp_test_SRQyFTwNocmDdq",
 
 amount: data.amount * 100,
 
