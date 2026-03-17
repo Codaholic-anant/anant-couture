@@ -47,7 +47,9 @@ export default function Home() {
     useEffect(() => {
         API.get("products/")
             .then(res => { setProducts(res.data); setLoading(false); })
-            .catch(() => setLoading(false));
+            .catch((err) => {console.log(err);
+                setLoading(false);
+            });
     }, []);
 
     const subscribe = () => {
